@@ -48,7 +48,57 @@ def index_documents(documents: list[str], queries: list[str]) -> list[list[int]]
         list[list[int]]: Lista wyników dla kolejnych zapytań.
     """
     ### TUTAJ PODAJ ROZWIĄZANIE ZADANIA
+    import re
 
+    def index_documents(documents: list[str], queries: list[str]) -> list[list[int]]:
+
+        processed_docs = []
+
+        for doc in documents:
+            words = re.findall(r'\w+', doc.lower())
+            processed_docs.append(words)
+
+        results = []
+
+        for query in queries:
+            query = query.lower()
+
+            occurrences = []
+
+            for doc_id in range(len(processed_docs)):
+
+                count = processed_docs[doc_id].count(query)
+
+                if count > 0:
+                    occurrences.append((doc_id, count))
+
+            occurrences.sort(key=lambda x: (-x[1], -x[0]))
+
+            results.append([doc_id for doc_id, _ in occurrences])
+
+        return results
+
+    if __name__ == "__main__":
+
+        n = int(input("Podaj liczbę dokumentów: "))
+        documents = []
+
+        print("Wprowadź kolejne dokumenty:")
+        for _ in range(n):
+            documents.append(input())
+
+        m = int(input("Podaj liczbę zapytań: "))
+        queries = []
+
+        print("Wprowadź kolejne zapytania:")
+        for _ in range(m):
+            queries.append(input().strip())
+
+        results = index_documents(documents, queries)
+
+        print("Wyniki:")
+        for res in results:
+            print(res)
     ### return [[]] - powinno być zmienione i zwrócić prawdziwy wynik (zgodny z oczekiwaniami)
     return [[]]
 

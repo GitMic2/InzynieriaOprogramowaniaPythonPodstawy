@@ -31,7 +31,35 @@ def check_parentheses(s: str) -> bool:
         bool: True jeśli nawiasy są poprawne, False w przeciwnym wypadku.
     """
     ### TUTAJ PODAJ ROZWIĄZANIE ZADANIA
+    def check_parentheses(s: str) -> bool:
 
+        stack = []
+
+        for znak in s:
+
+            if znak == '(':
+                stack.append(znak)
+
+            elif znak == ')':
+
+                if len(stack) == 0:
+                    return False
+
+                stack.pop()
+
+        return len(stack) == 0
+
+    if __name__ == "__main__":
+
+        tekst = input("Podaj tekst do sprawdzenia nawiasów: ")
+
+        wynik = check_parentheses(tekst)
+
+        if '(' not in tekst and ')' not in tekst:
+            print("Brak okrągłych nawiasów w tekście")
+
+        else:
+            print(wynik)
     ### return False - powinno być zmienione i zwrócić prawdziwy wynik (zgodny z oczekiwaniami)
     return False
 
